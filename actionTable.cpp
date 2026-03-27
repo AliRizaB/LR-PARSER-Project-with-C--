@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <optional>
+#include <stack>
 #include "performingOp.cpp"
 
 enum ActionOP
@@ -64,7 +65,7 @@ public:
     }
 };
 
-ActionObj FindTheOperation(ActionTable actionTable, std::string opName, int state)
+ActionObj FindTheOperation(std::stack<std::string>& outputStack, std::string& inputParsee, ActionTable actionTable, std::string opName, int state)
 {
     auto action = actionTable.FindActionByName(opName);
 
@@ -83,7 +84,7 @@ ActionObj FindTheOperation(ActionTable actionTable, std::string opName, int stat
             break;
 
         case SHIFT:
-            PerformingShiftOp();
+            PerformingShiftOp(outputStack, inputParsee, opName, actionObj.actionId);
             break;
 
         case REDUCE:
