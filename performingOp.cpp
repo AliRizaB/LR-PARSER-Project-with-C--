@@ -1,0 +1,7 @@
+void PerformingShiftOp(){
+
+}
+
+void PerformingReduceOp(){
+    
+}
