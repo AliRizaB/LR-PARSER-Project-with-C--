@@ -88,7 +88,7 @@ ActionObj FindTheOperation(std::stack<std::string>& outputStack, std::string& in
             break;
 
         case REDUCE:
-            PerformingReduceOp();
+            PerformingReduceOp(outputStack, inputParsee, opName, actionObj.actionId);
             break;
 
         case ACCEPT:
