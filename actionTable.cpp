@@ -1,71 +1,52 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <optional>
 #include <stack>
-#include "performingOp.cpp"
+#include <string>
+#include <iostream>
+#include "actionTable.hpp"
+#include "performingOp.hpp"
 
-enum ActionOP
+ActionTable::ActionTable() {}
+
+std::ostream &ActionTable::writeTable(std::ostream &os)
 {
-    EMPTY,
-    SHIFT,
-    REDUCE,
-    ACCEPT
-};
-
-class ActionObj
-{
-public:
-    ActionOP actionOp;
-    int actionId;
-
-    ActionObj()
+    for (int i = 0; i < actions.size(); i++)
     {
-        this->actionOp = EMPTY;
-        this->actionId = 0;
+        os << actions.at(i).name << ' ';
     }
 
-    ActionObj(ActionOP actionOp, int actionId)
+    os << '\n';
+
+    for (size_t j = 0; j < actions.at(0).operation.size(); j++)
     {
-        this->actionOp = actionOp;
-        this->actionId = actionId;
-    }
-};
-
-struct ActionList
-{
-    std::string name;
-    std::vector<ActionObj> operation;
-};
-
-class ActionTable
-{
-public:
-    static std::vector<ActionList> actions;
-
-    ActionTable(ActionList actionList)
-    {
-        actions.push_back(actionList);
-    }
-
-    static std::optional<ActionList> FindActionByName(std::string name)
-    {
-        for (size_t i = 0; i < actions.size(); i++)
+        for (int i = 0; i < actions.size(); i++)
         {
-            if (actions[i].name == name)
-            {
-                return actions[i];
-            }
-            // If not found throw an error
-            else
-            {
-                return std::nullopt;
-            }
+            actions.at(i).operation.at(j).writeAction(os);
+            os << ' ';
         }
+        os << '\n';
     }
-};
 
-ActionObj FindTheOperation(std::stack<std::string>& outputStack, std::string& inputParsee, ActionTable actionTable, std::string opName, int state)
+    return os;
+}
+
+void ActionTable::AddActionList(ActionList actionList)
+{
+    actions.push_back(actionList);
+}
+
+std::optional<ActionList> ActionTable::FindActionByName(std::string name)
+{
+    for (size_t i = 0; i < actions.size(); i++)
+    {
+        if (actions[i].name == name)
+        {
+            return actions[i];
+        }
+        // If not found throw an error
+    }
+    return std::nullopt;
+}
+
+void ActionTable::FindTheOperation(std::stack<std::string> &outputStack, std::string &inputParsee, ActionTable &actionTable, std::string opName, int state)
 {
     auto action = actionTable.FindActionByName(opName);
 

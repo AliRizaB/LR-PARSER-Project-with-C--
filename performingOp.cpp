@@ -1,4 +1,7 @@
-#include "grammarTable_gotoTable.cpp"
+#include <string>
+#include <stack>
+#include <iostream>
+#include "PerformingOP.hpp"
 
 void PerformingShiftOp(std::stack<std::string> &outputStack, std::string &inputParsee, std::string opName, int actionId)
 {
@@ -19,7 +22,10 @@ void PerformingShiftOp(std::stack<std::string> &outputStack, std::string &inputP
 
 void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &inputParsee, std::string opName, int actionId)
 {
-    auto grammar = FindGrammar(actionId);
+    gotoTableManager gotoManager = gotoTableManager();
+    GrammarManager grammarManager = GrammarManager();
+
+    auto grammar = grammarManager.Find(actionId);
 
     if (!grammar)
     {
@@ -34,7 +40,7 @@ void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &input
         // The grammarRemove is also get removed
         outputStack.pop();
 
-        std::optional<int> gotoValue = FindGoto(outputStack.top(), (*grammar).grammarAdd);
+        std::optional<int> gotoValue = gotoManager.Find(outputStack.top(), (*grammar).grammarAdd);
 
         if (!gotoValue)
         {
