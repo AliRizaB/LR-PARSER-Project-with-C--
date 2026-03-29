@@ -97,3 +97,40 @@ void ConstructGoToTable(GotoTableManager &gotoManager)
 
     readGoto.close();
 }
+
+void ConstructGrammarTable(GrammarManager &grammarManager)
+{
+    const std::string TABLE_FILE = "Tables/Grammar.txt";
+
+    std::ifstream readGrammar(TABLE_FILE);
+    std::string Id, value, arrow;
+    std::string grammarUse = "";
+    std::string grammarReplace = "";
+
+    if (readGrammar.is_open())
+    {
+        // Reading the grammar file line by line
+        std::string line;
+        while (std::getline(readGrammar, line))
+        {
+            // Putting it into a sstream for easier reading
+            std::stringstream ss(line);
+            // Id is read
+            ss >> Id;
+
+            // grammarUse will be read
+            while (ss >> value && value != "->")
+            {
+                grammarUse += value;
+            }
+
+            // Rest is read for the replace
+            std::getline(ss, grammarReplace);
+
+            grammarManager.setGrammar(std::stoi(Id), grammarUse, grammarReplace);
+            grammarUse = "";
+        }
+
+        readGrammar.close();
+    }
+}

@@ -1,5 +1,33 @@
 #include "gotoTable.hpp"
 
+// Goto Table Functions
+GoToTable::GoToTable(std::string location)
+{
+    gotoLocation = location;
+}
+
+void GoToTable::setGotoValues(int value)
+{
+    gotoValues.push_back(value);
+}
+
+std::ostream &GoToTable::writeValue(std::ostream &os, int value)
+{
+
+    switch (gotoValues.at(value))
+    {
+    case -1:
+        os << '-';
+        break;
+
+    default:
+        os << gotoValues.at(value);
+        break;
+    }
+    return os;
+}
+
+// Goto table Manager Functions
 std::optional<int> GotoTableManager::Find(std::string stateValue, std::string gotoLocation)
 {
     for (const auto &entry : goToTableList)

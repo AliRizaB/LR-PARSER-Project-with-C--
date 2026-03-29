@@ -33,14 +33,14 @@ void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &input
     }
     else
     {
-        while (outputStack.top() == (*grammar).grammarRemove)
+        while (outputStack.top() == (*grammar).grammarReplace)
         {
             outputStack.pop();
         }
         // The grammarRemove is also get removed
         outputStack.pop();
 
-        std::optional<int> gotoValue = gotoManager.Find(outputStack.top(), (*grammar).grammarAdd);
+        std::optional<int> gotoValue = gotoManager.Find(outputStack.top(), (*grammar).grammarUse);
 
         if (!gotoValue)
         {
@@ -49,7 +49,7 @@ void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &input
         else
         {
 
-            outputStack.push((*grammar).grammarAdd);
+            outputStack.push((*grammar).grammarUse);
             outputStack.push(std::to_string((*gotoValue)));
         }
     }

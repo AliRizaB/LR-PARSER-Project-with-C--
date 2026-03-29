@@ -8,14 +8,19 @@ std::stack<std::string> outputStack;
 std::string parsee;
 ActionTable actionTable = ActionTable();
 GotoTableManager gotoManager = GotoTableManager();
+GrammarManager grammarManager = GrammarManager();
 
 int main(int argc, char *argv[])
 {
     // std::ifstream inFile(argv[1]);
-    // ConstructActionTable(actionTable);
-    ConstructGoToTable(gotoManager);
-    // actionTable.writeTable(std::cout);
-    gotoManager.writeGotoTable(std::cout);
 
+    // ConstructActionTable(actionTable);
+    // actionTable.writeTable(std::cout);
+
+    // ConstructGoToTable(gotoManager);
+    // gotoManager.writeGotoTable(std::cout);
+
+    ConstructGrammarTable(grammarManager);
+    grammarManager.writeGrammarTable(std::cout);
     return 0;
 }

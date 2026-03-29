@@ -4,27 +4,28 @@
 #include <string>
 #include <vector>
 #include <optional>
+#include <iostream>
 
-struct GrammarTable
+struct GrammarRule
 {
     int grammarId;
-    std::string grammarAdd;
-    std::string grammarRemove;
+    std::string grammarUse;
+    std::string grammarReplace;
+
+    GrammarRule(int Id, std::string use, std::string replace);
+
+    std::ostream &writeRule(std::ostream &os);
 };
 
 struct GrammarManager
 {
-    std::vector<GrammarTable> table;
+    std::vector<GrammarRule> grammarTable;
 
-    std::optional<GrammarTable> Find(int id)
-    {
-        for (const auto &entry : table)
-        {
-            if (entry.grammarId == id)
-                return entry;
-        }
-        return std::nullopt;
-    }
+    std::optional<GrammarRule> Find(int id);
+
+    void setGrammar(int Id, std::string use, std::string replace);
+
+    std::ostream &writeGrammarTable(std::ostream &os);
 };
 
 #endif

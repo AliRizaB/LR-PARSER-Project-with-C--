@@ -11,31 +11,11 @@ struct GoToTable
     std::string gotoLocation;
     std::vector<int> gotoValues;
 
-    GoToTable(std::string location)
-    {
-        gotoLocation = location;
-    }
+    GoToTable(std::string location);
 
-    void setGotoValues(int value)
-    {
-        gotoValues.push_back(value);
-    }
+    void setGotoValues(int value);
 
-    std::ostream &writeValue(std::ostream &os, int value)
-    {
-
-        switch (gotoValues.at(value))
-        {
-        case -1:
-            os << '-';
-            break;
-
-        default:
-            os << gotoValues.at(value);
-            break;
-        }
-        return os;
-    }
+    std::ostream &writeValue(std::ostream &os, int value);
 };
 
 struct GotoTableManager
