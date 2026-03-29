@@ -4,6 +4,8 @@
 #include <vector>
 #include <optional>
 #include <ostream>
+#include <stack>
+#include <iostream>
 #include "actions.hpp"
 
 struct ActionList

@@ -4,26 +4,48 @@
 #include <string>
 #include <vector>
 #include <optional>
+#include <iostream>
 
 struct GoToTable
 {
     std::string gotoLocation;
     std::vector<int> gotoValues;
-};
 
-struct gotoTableManager
-{
-    std::vector<GoToTable> goToTable;
-
-    std::optional<int> Find(std::string stateValue, std::string gotoLocation)
+    GoToTable(std::string location)
     {
-        for (const auto &entry : goToTable)
+        gotoLocation = location;
+    }
+
+    void setGotoValues(int value)
+    {
+        gotoValues.push_back(value);
+    }
+
+    std::ostream &writeValue(std::ostream &os, int value)
+    {
+
+        switch (gotoValues.at(value))
         {
-            if (entry.gotoLocation == gotoLocation)
-                return entry.gotoValues.at(std::stoi(stateValue));
+        case -1:
+            os << '-';
+            break;
+
+        default:
+            os << gotoValues.at(value);
+            break;
         }
-        return std::nullopt;
+        return os;
     }
 };
 
+struct GotoTableManager
+{
+    std::vector<GoToTable> goToTableList;
+
+    std::optional<int> Find(std::string stateValue, std::string gotoLocation);
+    void setGotoLocationEntry(std::string location);
+    void setGotoValueEntry(int locationNo, int value);
+    int getTableSize();
+    std::ostream &writeGotoTable(std::ostream &os);
+};
 #endif

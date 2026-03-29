@@ -8,8 +8,11 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "main.cpp",
-                "ActionTable.cpp",
+                "actionTable.cpp",
                 "performingOp.cpp",
+                "actions.cpp",
+                "constructingTable.cpp",
+                "goToTable.cpp",
                 "-o",
                 "${workspaceFolder}\\main.exe"
             ],

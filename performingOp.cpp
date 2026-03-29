@@ -22,7 +22,7 @@ void PerformingShiftOp(std::stack<std::string> &outputStack, std::string &inputP
 
 void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &inputParsee, std::string opName, int actionId)
 {
-    gotoTableManager gotoManager = gotoTableManager();
+    GotoTableManager gotoManager = GotoTableManager();
     GrammarManager grammarManager = GrammarManager();
 
     auto grammar = grammarManager.Find(actionId);
