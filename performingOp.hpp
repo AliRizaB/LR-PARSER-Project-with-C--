@@ -8,7 +8,6 @@
 #include "grammarTable.hpp"
 
 void PerformingShiftOp(std::stack<std::string> &outputStack, std::string &inputParsee, std::string opName, int actionId);
-void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &inputParsee, std::string opName, int actionId);
-
+void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &inputParsee, GrammarManager &grammarManager, GotoTableManager &gotoManager, std::string opName, int actionId);
 
 #endif

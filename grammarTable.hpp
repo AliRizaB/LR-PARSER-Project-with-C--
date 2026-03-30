@@ -2,6 +2,7 @@
 #define GRAMMARTABLE_HPP
 
 #include <string>
+#include <sstream>
 #include <vector>
 #include <optional>
 #include <iostream>
@@ -13,7 +14,7 @@ struct GrammarRule
     std::string grammarReplace;
 
     GrammarRule(int Id, std::string use, std::string replace);
-
+    int getReplaceToken();
     std::ostream &writeRule(std::ostream &os);
 };
 

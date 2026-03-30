@@ -33,8 +33,6 @@ public:
     void AddActionList(ActionList actionList);
     std::optional<ActionList> FindActionByName(std::string name);
     std::ostream &writeTable(std::ostream &os);
-    void ConstructActionTable();
-    void FindTheOperation(std::stack<std::string> &outputStack, std::string &inputParsee, ActionTable &actionTable, std::string opName, int state);
 };
 
 #endif

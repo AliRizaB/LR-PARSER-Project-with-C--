@@ -43,39 +43,3 @@ std::optional<ActionList> ActionTable::FindActionByName(std::string name)
     }
     return std::nullopt;
 }
-
-void ActionTable::FindTheOperation(std::stack<std::string> &outputStack, std::string &inputParsee, ActionTable &actionTable, std::string opName, int state)
-{
-    auto action = actionTable.FindActionByName(opName);
-
-    if (!action)
-    {
-        std::cerr << "Action Not Found";
-    }
-    else
-    {
-        ActionObj actionObj = (*action).operation[state];
-
-        switch (actionObj.actionOp)
-        {
-        case EMPTY:
-            // REPORTING INPUT FAILED;
-            break;
-
-        case SHIFT:
-            PerformingShiftOp(outputStack, inputParsee, opName, actionObj.actionId);
-            break;
-
-        case REDUCE:
-            PerformingReduceOp(outputStack, inputParsee, opName, actionObj.actionId);
-            break;
-
-        case ACCEPT:
-            // REPORTING THE INPUT ACCEPTED
-            break;
-
-        default:
-            break;
-        }
-    }
-}

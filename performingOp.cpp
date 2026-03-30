@@ -5,25 +5,14 @@
 
 void PerformingShiftOp(std::stack<std::string> &outputStack, std::string &inputParsee, std::string opName, int actionId)
 {
+    std::cout << "Performing Shift OPeration " << opName << ' ' << actionId << std::endl;
     outputStack.push(opName);
     outputStack.push(std::to_string(actionId));
-
-    // Removing the the input
-    size_t pos = inputParsee.find(' ');
-    if (pos != std::string::npos)
-    {
-        inputParsee.erase(0, pos + 1);
-    }
-    else
-    {
-        inputParsee.clear();
-    }
 }
 
-void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &inputParsee, std::string opName, int actionId)
+void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &inputParsee, GrammarManager &grammarManager, GotoTableManager &gotoManager, std::string opName, int actionId)
 {
-    GotoTableManager gotoManager = GotoTableManager();
-    GrammarManager grammarManager = GrammarManager();
+    std::cout << "Performing Reduce OPeration " << opName << ' ' << actionId << std::endl;
 
     auto grammar = grammarManager.Find(actionId);
 
@@ -33,12 +22,16 @@ void PerformingReduceOp(std::stack<std::string> &outputStack, std::string &input
     }
     else
     {
-        while (outputStack.top() == (*grammar).grammarReplace)
+        int rhsLength = (*grammar).getReplaceToken();
+
+        // 2. Pop 2 * rhsLength items (The Symbol + The State ID for each)
+        for (int i = 0; i < 2 * rhsLength; ++i)
         {
-            outputStack.pop();
+            if (!outputStack.empty())
+            {
+                outputStack.pop();
+            }
         }
-        // The grammarRemove is also get removed
-        outputStack.pop();
 
         std::optional<int> gotoValue = gotoManager.Find(outputStack.top(), (*grammar).grammarUse);
 

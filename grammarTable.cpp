@@ -1,13 +1,24 @@
 #include "grammarTable.hpp"
 
-
-
 // Grammar rule Functions
 GrammarRule::GrammarRule(int Id, std::string use, std::string replace)
 {
     grammarId = Id;
     grammarUse = use;
     grammarReplace = replace;
+}
+
+int GrammarRule::getReplaceToken()
+{
+    std::stringstream ss(grammarReplace);
+    std::string token;
+    int tokenCount = 0;
+
+    while (ss >> token)
+    {
+        tokenCount++;
+    }
+    return tokenCount;
 }
 
 std::ostream &GrammarRule::writeRule(std::ostream &os)

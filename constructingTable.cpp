@@ -127,6 +127,9 @@ void ConstructGrammarTable(GrammarManager &grammarManager)
             // Rest is read for the replace
             std::getline(ss, grammarReplace);
 
+            grammarReplace.erase(0, grammarReplace.find_first_not_of(" "));
+            grammarReplace.erase(grammarReplace.find_last_not_of(" ") + 1);
+
             grammarManager.setGrammar(std::stoi(Id), grammarUse, grammarReplace);
             grammarUse = "";
         }
